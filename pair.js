@@ -81,11 +81,11 @@ router.get("/", async (req, res) => {
               ""
             );
 
-            const sid = `*NETHMINA OFC WA-BOT*\n\n👉 ${string_session} 👈\n\n*This is the your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link*\n\n*wa.me/message/WKGLBR2PCETWD1*\n\n*You can join my whatsapp group*\n\n*https://chat.whatsapp.com/GAOhr0qNK7KEvJwbenGivZ*`;
+            const sid = `*𝐍𝐄𝐓𝐇𝐌𝐈𝐍𝐀 𝐎𝐅𝐂 𝐖𝐀-𝐁𝐎𝐓*\n\n👉 ${string_session} 👈\n\n*This is the your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link*\n\n*https://wa.me/+94760860835?text=Hi*\n\n*You can join my whatsapp group*\n\n*https://chat.whatsapp.com/FUGjjEbLPQp7KHL5jAUJb8?mode=r_t*`;
             const mg = `🛑 *Do not share this code to anyone* 🛑`;
             const dt = await RobinPairWeb.sendMessage(user_jid, {
               image: {
-                url: "https://github.com/Nethmina001/NETHMINA-WABOT-DATABASE/blob/main/images/20250720_2027_image.png",
+                url: "https://ibb.co/NgVXSBzw",
               },
               caption: sid,
             });
