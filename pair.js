@@ -81,7 +81,7 @@ router.get("/", async (req, res) => {
               ""
             );
 
-            const sid = `*🤖 𝐖𝙴𝙻𝙲𝙾𝙼𝙴 𝐓𝙾 𝐍𝙴𝚃𝙷𝙼𝙸𝙽𝙰 𝐎ƒᴄ 𝐖𝙰 𝐁𝙾𝚃 🤖*\n\n*`🆔 EbNnDIab#s1U-XTfHoG-CQYqV37lYIxwaaUD-nifD8eIU6wFyh_Q` 🆔*\n\n*👆 This is the your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link 👤*\n\n*https://wa.me/message/5AWGRCFVNFAPE1*\n\n*🧩 You can join my whatsapp group 🧩*\n\n*https://chat.whatsapp.com/FUGjjEbLPQp7KHL5jAUJb8*\n\n> *ᴩᴏᴡᴇʀᴇᴅ ʙʏ ɴᴇᴛʜᴍɪɴᴀ ᴏꜰᴄ*`;
+            const sid = `*🤖 𝐖𝙴𝙻𝙲𝙾𝙼𝙴 𝐓𝙾 𝐍𝙴𝚃𝙷𝙼𝙸𝙽𝙰 𝐎ƒᴄ 𝐖𝙰 𝐁𝙾𝚃 🤖*\n\n*🆔 EbNnDIab#s1U-XTfHoG-CQYqV37lYIxwaaUD-nifD8eIU6wFyh_Q 🆔*\n\n*👆 This is the your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link 👤*\n\n*https://wa.me/message/5AWGRCFVNFAPE1*\n\n*🧩 You can join my whatsapp group 🧩*\n\n*https://chat.whatsapp.com/FUGjjEbLPQp7KHL5jAUJb8*\n\n> *ᴩᴏᴡᴇʀᴇᴅ ʙʏ ɴᴇᴛʜᴍɪɴᴀ ᴏꜰᴄ*`;
             const mg = `🛑 *Do not share this code to anyone* 🛑`;
             const dt = await RobinPairWeb.sendMessage(user_jid, {
               image: {
@@ -129,3 +129,4 @@ process.on("uncaughtException", function (err) {
 });
 
 module.exports = router;
+
