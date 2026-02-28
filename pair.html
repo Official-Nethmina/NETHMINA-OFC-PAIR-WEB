@@ -183,60 +183,62 @@ body {
   src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
   ></script>
   <script>
-    
     let a = document.getElementById("pair");
     let b = document.getElementById("submit");
     let c = document.getElementById("number");
-    let box = document.getElementById("box");
+    let spinner = document.getElementById("loading-spinner");
 
     async function Copy() {
-      let text = document.getElementById("copy").innerText;
-      let obj = document.getElementById("copy");
-      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
-      obj.innerText = "COPIED ✅";
-      obj.style = "color:blue;font-weight:bold";
-      obj.size = "5";
-      setTimeout(() => {
-        obj.innerText = text;
-        obj.style = "color:black;font-weight-bold";
-        obj.size = "5";
-      }, 500);
+        let obj = document.getElementById("copy");
+        let originalText = obj.innerHTML;
+        let codeToCopy = obj.innerText.replace('CODE: ', '');
+        
+        await navigator.clipboard.writeText(codeToCopy);
+        obj.innerText = "COPIED ✅";
+        obj.style.color = "#2ecc71";
+        
+        setTimeout(() => {
+            obj.innerHTML = originalText;
+            obj.style.color = "red";
+        }, 1500);
     }
 
     b.addEventListener("click", async (e) => {
-      e.preventDefault();
-      if (!c.value) {
-        a.innerHTML = '<a style="color:red;font-weight:bold">❗ Enter your whatsapp number with country code.</a><br><br>';
-      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
-        a.innerHTML = '<a style="color:red;font-weight:bold">❗ Invalid number format. Please try again. ❌</a><br><br>';
-      } else {
-        const bc = c.value.replace(/[^0-9]/g, "");
-        let bb = "";
-        let bbc = "";
-        const cc = bc.split('');
-        cc.map(a => {
-          bbc += a;
-          if (bbc.length == 3) {
-            bb += " " + a;
-          } else if (bbc.length == 8) {
-            bb += " " + a;
-          } else {
-            bb += a;
-          }
-        });
-        c.type = "text";
-        c.value = "+" + bb;
-        c.style = "color:black;font-size:20px";
-        // Show the loading spinner
-        document.getElementById("loading-spinner").style.display = "block";
-        a.innerHTML = ''; // Clear the previous content
-        let { data } = await axios(`/code?number=${bc}`);
-        let code = data.code || "❗ Service Unavailable";
-        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:white;font-weight:bold">' + code + '</span></font><br><br><br>';
-        // Hide the loading spinner when the process is complete
-        document.getElementById("loading-spinner").style.display = "none";
-      }
+        e.preventDefault();
+        const rawNumber = c.value.replace(/[^0-9]/g, "");
+
+        if (!rawNumber) {
+            a.innerHTML = '<a style="color:red;font-weight:bold">❗ Enter your whatsapp number with country code.</a><br><br>';
+            return;
+        } 
+        
+        // ලංකාවේ අංක (94...) හෝ වෙනත් රටක අංකයක් දැයි බැලීමට අවම ඉලක්කම් 10ක් වත් තිබිය යුතුයි
+        if (rawNumber.length < 10) {
+            a.innerHTML = '<a style="color:red;font-weight:bold">❗ Invalid number format. Too short. ❌</a><br><br>';
+            return;
+        }
+
+        // UI Updates
+        spinner.style.display = "block";
+        a.innerHTML = '<span style="color:white">Requesting code... Please wait.</span>';
+        b.disabled = true;
+
+        try {
+            let { data } = await axios(`/code?number=${rawNumber}`);
+            let code = data.code || "❗ Service Unavailable";
+            
+            if (code === "Service Unavailable") {
+                a.innerHTML = '<a style="color:red;font-weight:bold">❗ Server Busy. Try again later.</a><br><br>';
+            } else {
+                a.innerHTML = '<font id="copy" onclick="Copy()" style="color:red;font-weight:bold; cursor:pointer;" size="5">CODE: <span style="color:white;font-weight:bold">' + code + '</span></font><br><br><br>';
+            }
+        } catch (err) {
+            a.innerHTML = '<a style="color:red;font-weight:bold">❗ Error connecting to server.</a><br><br>';
+        } finally {
+            spinner.style.display = "none";
+            b.disabled = false;
+        }
     });
-  </script>
+</script>
  </body>
 </html>
